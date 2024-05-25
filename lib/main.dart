@@ -14,7 +14,7 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
-            primaryColor: const Color(0xff774C9E), fontFamily: 'AtypText'),
+            primaryColor: const Color(0xff331F57), fontFamily: 'AtypText'),
         localizationsDelegates: const [
           GlobalMaterialLocalizations.delegate,
           GlobalWidgetsLocalizations.delegate,

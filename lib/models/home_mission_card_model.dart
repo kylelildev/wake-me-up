@@ -2,6 +2,10 @@ enum HomeMissionCardType {
   skipping,
   cycling,
   meditation,
+  muscle,
+  dumble,
+  treadmill,
+  running
 }
 
 class HomeMissionCard {

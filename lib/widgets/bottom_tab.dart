@@ -1,8 +1,12 @@
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:wakemeup/models/home_mission_card_model.dart';
 import 'package:wakemeup/screens/home_screen.dart';
 import 'package:wakemeup/screens/mission_screen.dart';
 import 'package:wakemeup/screens/profile_screen.dart';
 import 'package:wakemeup/screens/store_screen.dart';
 import 'package:flutter/material.dart';
+import 'package:wakemeup/widgets/bottom_tab_button.dart';
+import 'package:wakemeup/widgets/mission_item_card.dart';
 
 class BottomTabWidget extends StatefulWidget {
   const BottomTabWidget({super.key});
@@ -14,133 +18,152 @@ class BottomTabWidget extends StatefulWidget {
 class _BottomTabWidgetState extends State<BottomTabWidget> {
   int currentTab = 0;
   final List<Widget> screens = [
-    HomeScreen(),
-    StoreScreen(),
-    MissionScreen(),
-    ProfileScreen(),
+    const HomeScreen(),
+    const StoreScreen(),
+    const MissionScreen(),
+    const ProfileScreen(),
   ];
 
   final PageStorageBucket pageStorageBucket = PageStorageBucket();
-  Widget currentScreen = HomeScreen();
+  Widget currentScreen = const HomeScreen();
 
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> leftBottomTabButtons = [
+      {'widget': const HomeScreen(), 'iconSource': 'assets/images/ic_home.svg'},
+      {
+        'widget': const StoreScreen(),
+        'iconSource': 'assets/images/ic_shop.svg'
+      },
+    ];
+
+    // List<Map<String, dynamic>> rightBottomTabButtons = [
+    //   {
+    //     'widget': const MissionScreen(),
+    //     'iconSource': 'assets/images/ic_gym.svg'
+    //   },
+    //   {
+    //     'widget': const ProfileScreen(),
+    //     'iconSource': 'assets/images/ic_user-square.svg'
+    //   },
+    // ];
+
+    List<HomeMissionCardType> listTypes = [
+      HomeMissionCardType.cycling,
+      HomeMissionCardType.dumble,
+      HomeMissionCardType.meditation,
+      HomeMissionCardType.muscle,
+      HomeMissionCardType.running,
+      HomeMissionCardType.skipping,
+      HomeMissionCardType.treadmill,
+    ];
+
+    onPressMissionTab() => {
+          showBarModalBottomSheet(
+            isDismissible: false,
+            topControl: const SizedBox(
+              width: 15,
+            ),
+            context: context,
+            builder: (context) => SingleChildScrollView(
+              child: SafeArea(
+                child: Column(children: [
+                  Padding(
+                    padding: const EdgeInsets.symmetric(vertical: 15.0),
+                    child: Center(
+                      child: Container(
+                        width: 44,
+                        height: 5,
+                        decoration: BoxDecoration(
+                            color: Colors.grey,
+                            borderRadius: BorderRadius.circular(5)),
+                      ),
+                    ),
+                  ),
+                  ListView.builder(
+                    padding: const EdgeInsets.symmetric(horizontal: 15),
+                    primary: false,
+                    shrinkWrap: true,
+                    itemCount: listTypes.length,
+                    itemBuilder: (context, index) => MissionItemCard(
+                      type: listTypes[index],
+                    ),
+                  ),
+                ]),
+              ),
+            ),
+          )
+        };
+
     return Scaffold(
       body: PageStorage(
         bucket: pageStorageBucket,
         child: currentScreen,
       ),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.pink,
         onPressed: () => (),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(40)),
-        child: Icon(
+        child: const Icon(
           Icons.add_box_outlined,
           color: Colors.white,
-        ), 
+        ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
         notchMargin: 10,
-        child: Container(
+        child: SizedBox(
           height: 60,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  MaterialButton(
+          child:
+              Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
+            Row(
+              children: leftBottomTabButtons.map((e) {
+                int index = leftBottomTabButtons.indexOf(e);
+                return BottomTabButton(
                     onPressed: () => {
-                      setState(() {
-                        currentScreen = HomeScreen();
-                        currentTab = 0;
-                      })
-                    },
-                    minWidth: 40,
-                    child: Column(
-                      children: [
-                        Icon(Icons.home),
-                        Text(
-                          'Home',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 0 ? Colors.blue : Colors.grey),
-                        )
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    ),
-                  ),
-                  MaterialButton(
+                          setState(() {
+                            currentScreen = e['widget'];
+                            currentTab = index;
+                          })
+                        },
+                    iconSvgSource: e['iconSource'],
+                    isActive: currentTab == index);
+              }).toList(),
+            ),
+            // Row(
+            //   children: rightBottomTabButtons.map((e) {
+            //     int index = rightBottomTabButtons.indexOf(e) + 2;
+            //     return BottomTabButton(
+            //         onPressed: () => {
+            //               setState(() {
+            //                 currentScreen = e['widget'];
+            //                 currentTab = index;
+            //               })
+            //             },
+            //         iconSvgSource: e['iconSource'],
+            //         isActive: currentTab == index);
+            //   }).toList(),
+            // )
+            Row(
+              children: [
+                BottomTabButton(
+                  iconSvgSource: 'assets/images/ic_gym.svg',
+                  onPressed: () => {onPressMissionTab()},
+                  isActive: false,
+                ),
+                BottomTabButton(
                     onPressed: () => {
-                      setState(() {
-                        currentScreen = StoreScreen();
-                        currentTab = 1;
-                      })
-                    },
-                    minWidth: 40,
-                    child: Column(
-                      children: [
-                        Icon(Icons.store),
-                        Text(
-                          'Store',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 1 ? Colors.blue : Colors.grey),
-                        )
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    ),
-                  ),
-                ],
-              ),
-              Row(
-                children: [
-                  MaterialButton(
-                    onPressed: () => {
-                      setState(() {
-                        currentScreen = MissionScreen();
-                        currentTab = 2;
-                      })
-                    },
-                    minWidth: 40,
-                    child: Column(
-                      children: [
-                        Icon(Icons.support_agent),
-                        Text(
-                          'Mission',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 2 ? Colors.blue : Colors.grey),
-                        )
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    ),
-                  ),
-                  MaterialButton(
-                    onPressed: () => {
-                      setState(() {
-                        currentScreen = ProfileScreen();
-                        currentTab = 3;
-                      })
-                    },
-                    minWidth: 40,
-                    child: Column(
-                      children: [
-                        Icon(Icons.supervised_user_circle),
-                        Text(
-                          'Profile',
-                          style: TextStyle(
-                              color:
-                                  currentTab == 3 ? Colors.blue : Colors.grey),
-                        )
-                      ],
-                      mainAxisAlignment: MainAxisAlignment.center,
-                    ),
-                  )
-                ],
-              )
-            ],
-          ),
+                          setState(() {
+                            currentScreen = const ProfileScreen();
+                            currentTab = 3;
+                          })
+                        },
+                    iconSvgSource: 'assets/images/ic_user-square.svg',
+                    isActive: currentTab == 3)
+              ],
+            )
+          ]),
         ),
       ),
     );

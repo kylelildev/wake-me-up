@@ -1,4 +1,5 @@
-import 'package:wakemeup/models/home_alarm_plan.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:wakemeup/widgets/home_alarm_plan.dart';
 import 'package:wakemeup/models/home_mission_card_model.dart';
 import 'package:wakemeup/widgets/home_mission_card.dart';
 import 'package:flutter/material.dart';
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
               Column(
                 children: <Widget>[
                   Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 25.0),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -65,7 +66,7 @@ class _HomeScreenState extends State<HomeScreen> {
                           child: CircleAvatar(
                             radius: 35.0,
                             backgroundImage:
-                                AssetImage('assets/images/avatar.png'),
+                                AssetImage('assets/images/home/avatar1.png'),
                           ),
                         )
                       ],
@@ -74,18 +75,18 @@ class _HomeScreenState extends State<HomeScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 20.0),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
                     child: Row(
                       children: [
                         Expanded(
                           child: Card(
-                            color: Colors.white30,
+                            color: Colors.white10,
                             child: Padding(
-                              padding: EdgeInsets.all(30.0),
+                              padding: const EdgeInsets.all(30.0),
                               child: Column(
                                 children: [
-                                  Text(
+                                  const Text(
                                     '3232',
                                     style: TextStyle(
                                         color: Colors.white,
@@ -94,11 +95,18 @@ class _HomeScreenState extends State<HomeScreen> {
                                   ),
                                   Row(
                                     children: [
-                                      Icon(
-                                        Icons.woman_outlined,
-                                        color: Colors.white,
+                                      SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: SvgPicture.asset(
+                                            'assets/images/home/ic_steps.svg',
+                                            colorFilter: const ColorFilter.mode(
+                                                Colors.white, BlendMode.srcIn)),
                                       ),
-                                      Text(
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Text(
                                         'Steps',
                                         style: TextStyle(
                                           color: Colors.white,
@@ -111,25 +119,35 @@ class _HomeScreenState extends State<HomeScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           width: 15,
                         ),
                         Expanded(
                           child: Card(
                             child: Padding(
-                              padding: EdgeInsets.all(30.0),
+                              padding: const EdgeInsets.all(30.0),
                               child: Column(
                                 children: [
-                                  Text(
-                                    '3232',
+                                  const Text(
+                                    '952',
                                     style: TextStyle(
                                         fontSize: 32,
                                         fontWeight: FontWeight.bold),
                                   ),
                                   Row(
                                     children: [
-                                      Icon(Icons.woman_outlined),
-                                      Text('Steps')
+                                      SizedBox(
+                                        width: 20,
+                                        height: 20,
+                                        child: SvgPicture.asset(
+                                            'assets/images/home/ic_cal.svg',
+                                            colorFilter: const ColorFilter.mode(
+                                                Colors.black, BlendMode.srcIn)),
+                                      ),
+                                      const SizedBox(
+                                        width: 5,
+                                      ),
+                                      const Text('Calories')
                                     ],
                                   )
                                 ],
@@ -146,57 +164,63 @@ class _HomeScreenState extends State<HomeScreen> {
                   const Padding(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Card(
-                      color: Colors.white30,
+                      color: Colors.white10,
                       child: Padding(
                         padding:
                             EdgeInsets.symmetric(horizontal: 20, vertical: 15),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceAround,
                           children: [
-                            Column(
-                              children: [
-                                Text(
-                                  '12.19',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Coins',
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '12.19',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Coins',
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
                             ),
-                            Column(
-                              children: [
-                                Text(
-                                  '12.19',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Coins',
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '2.4 KM',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Distance',
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
                             ),
-                            Column(
-                              children: [
-                                Text(
-                                  '12.19',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                                Text(
-                                  'Coins',
-                                  style: TextStyle(color: Colors.white),
-                                )
-                              ],
+                            Expanded(
+                              child: Column(
+                                children: [
+                                  Text(
+                                    '38',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold),
+                                  ),
+                                  Text(
+                                    'Heart beat',
+                                    style: TextStyle(color: Colors.white),
+                                  )
+                                ],
+                              ),
                             )
                           ],
                         ),
@@ -247,8 +271,9 @@ class _HomeScreenState extends State<HomeScreen> {
                             const Padding(
                               padding: EdgeInsets.only(left: 22.0),
                               child: Text(
-                                'Demo Headline 2',
-                                style: TextStyle(fontSize: 18),
+                                'My Alarm Plans',
+                                style: TextStyle(
+                                    fontSize: 16, fontWeight: FontWeight.bold),
                               ),
                             ),
                             Padding(
@@ -259,7 +284,12 @@ class _HomeScreenState extends State<HomeScreen> {
                                 shrinkWrap: true,
                                 itemCount: 5,
                                 itemBuilder: (context, index) =>
-                                    HomeAlarmPlan(),
+                                    const HomeAlarmPlan(
+                                  alarmText: '05:00 AM',
+                                  duration: 30,
+                                  isActive: false,
+                                  type: HomeMissionCardType.cycling,
+                                ),
                               ),
                             ),
                           ],
