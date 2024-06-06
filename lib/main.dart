@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+// import 'package:flutter/services.dart';
 import 'package:wakemeup/widgets/bottom_tab.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 
 void main() {
+  // SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+  // statusBarBrightness: Brightness.dark,
+  // statusBarIconBrightness: Brightness.dark,
+  // systemStatusBarContrastEnforced: false,
+  // ));
   runApp(const MainApp());
 }
 
